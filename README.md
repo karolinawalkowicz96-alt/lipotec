@@ -1,3 +1,5 @@
 # Lipotec
 
-Strona EVA SP6. Statyczny projekt Vercel. Formularz demonstracyjny, bez wysyłania danych.
+Static site for EVA SP6. Deploy root directory on Vercel, no build command.
+
+Form is a demo: no data is sent or stored. AI visuals are labeled. Canonical domain: https://lipotec.vercel.app/.

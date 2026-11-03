@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://lipotec.vercel.app/sitemap.xml
