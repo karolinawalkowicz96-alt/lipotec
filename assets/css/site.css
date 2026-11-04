@@ -761,3 +761,35 @@ details[open] > summary i { background: #d5ad4d12; }
 }
 .explorer-img.zooming { touch-action: none; cursor: none; }
 @media (max-width: 640px) { .loupe { width: 150px; height: 150px; } }
+
+/* =====================================================================
+   v2.4 — studio backlight behind the device in the explorer
+   ===================================================================== */
+@property --gx { syntax: "<percentage>"; inherits: true; initial-value: 50%; }
+@property --gy { syntax: "<percentage>"; inherits: true; initial-value: 42%; }
+.explorer-figure { isolation: isolate; overflow: hidden; --gx: 50%; --gy: 42%; transition: --gx 1.2s var(--ease), --gy 1.2s var(--ease);
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 46%, #2a200f 0%, #120e07 45%, #050403 80%),
+    #000; }
+/* dot grid that fades out towards the edges */
+.explorer-figure::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: radial-gradient(#e6c47c 1px, transparent 1.4px); background-size: 22px 22px; opacity: .09;
+  -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 45%, #000 0%, transparent 75%); mask-image: radial-gradient(ellipse 60% 55% at 50% 45%, #000 0%, transparent 75%); }
+/* slow light rays */
+.explorer-figure::after { content: ""; position: absolute; left: 50%; top: 42%; width: 160%; aspect-ratio: 1; z-index: 0; pointer-events: none;
+  transform: translate(-50%, -50%) rotate(var(--ang)); opacity: .5;
+  background: conic-gradient(from 0deg, transparent 0 20deg, #f3cc7212 30deg, transparent 42deg 110deg, #fff1b90d 122deg, transparent 136deg 200deg, #f3cc7210 212deg, transparent 226deg 290deg, #fff1b90b 300deg, transparent 314deg);
+  -webkit-mask-image: radial-gradient(circle, #000 0%, transparent 62%); mask-image: radial-gradient(circle, #000 0%, transparent 62%);
+  animation: edge 40s linear infinite; }
+.explorer-img { z-index: auto; }
+/* glow that follows the selected element */
+.explorer-img::before { content: ""; position: absolute; z-index: -1; left: var(--gx); top: var(--gy); width: 95%; aspect-ratio: 1; transform: translate(-50%, -50%);
+  background: radial-gradient(circle, #f3cc7240 0%, #d9a33c1f 32%, transparent 66%); filter: blur(18px); pointer-events: none;
+  animation: breathe-glow 6s ease-in-out infinite; }
+/* floor light under the wheels */
+.explorer-img::after { content: ""; position: absolute; z-index: -1; left: 12%; right: 12%; bottom: 1%; height: 9%; pointer-events: none;
+  background: radial-gradient(ellipse at center, #f3cc7230 0%, #f3cc7210 40%, transparent 70%); filter: blur(6px); }
+/* the studio render has a pure black background: let the light show through it */
+.explorer-img > img { mix-blend-mode: lighten; position: relative; }
+@keyframes breathe-glow { 0%, 100% { opacity: .75; transform: translate(-50%, -50%) scale(.94); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); } }
+@media (prefers-reduced-motion: reduce) { .explorer-figure::after, .explorer-img::before { animation: none; } }

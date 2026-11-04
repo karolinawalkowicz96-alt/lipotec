@@ -227,6 +227,8 @@
       spots.forEach((s, k) => s.setAttribute("aria-pressed", String(k === i)));
       tabs.forEach((t, k) => { t.setAttribute("aria-selected", String(k === i)); t.tabIndex = k === i ? 0 : -1; });
       panels.forEach((p, k) => (p.hidden = k !== i));
+      const fig = $(".explorer-figure", ex), pnl = panels[i];
+      if (fig && pnl) { fig.style.setProperty("--gx", `${(+pnl.dataset.x * 100).toFixed(1)}%`); fig.style.setProperty("--gy", `${(+pnl.dataset.y * 100).toFixed(1)}%`); }
       if (focusTab) tabs[i]?.focus();
     }
     spots.forEach((s, i) => s.addEventListener("click", () => {
