@@ -655,3 +655,59 @@ details[open] > summary i { background: #d5ad4d12; }
 .section-alu .spec-strip .note { color: #8b8e90 !important; }
 @media (max-width: 980px) { .section-alu .spec-strip div:nth-child(n+3) { border-color: #16181a1f; } }
 .macro figcaption { background: linear-gradient(transparent, #000000b8 45%, #000000ee); text-shadow: 0 1px 8px #000; }
+
+/* =====================================================================
+   v2.2 — video loops, page transitions, finer details
+   ===================================================================== */
+@property --ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+
+/* rounded video loop with a travelling gold edge light */
+.loop { position: relative; margin: clamp(2rem, 4vw, 3rem) 0 0; border-radius: var(--radius-lg); aspect-ratio: 16 / 9; isolation: isolate; }
+.loop video { position: absolute; inset: 1px; width: calc(100% - 2px); height: calc(100% - 2px); object-fit: cover; border-radius: calc(var(--radius-lg) - 1px); background: #000; z-index: 1; }
+.loop::before { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: 0;
+  background: conic-gradient(from var(--ang), #ffffff10 0deg, #ffffff10 250deg, #f3cc72 300deg, #fff1b9 320deg, #ffffff10 360deg);
+  animation: edge 7s linear infinite; }
+.loop::after { content: ""; position: absolute; inset: 8% 6% -10%; z-index: -1; border-radius: 50%; background: radial-gradient(ellipse, #d9a33c26, transparent 70%); filter: blur(30px); }
+.loop-shine { position: absolute; inset: 1px; z-index: 2; border-radius: inherit; pointer-events: none; box-shadow: inset 0 0 0 1px #ffffff10, inset 0 -60px 80px -40px #000c; }
+@keyframes edge { to { --ang: 360deg; } }
+.loop-wide { margin-top: 2.4rem; }
+
+/* scroll progress hairline under the header */
+.site-header::after { content: ""; position: absolute; left: 0; bottom: -1px; height: 1px; width: 100%; background: var(--grad-text); transform-origin: left; transform: scaleX(var(--sp, 0)); opacity: .9; }
+
+/* cross-page fade (supported browsers) */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: vt-out .35s ease both; }
+::view-transition-new(root) { animation: vt-in .5s ease both; }
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in { from { opacity: 0; } }
+
+/* smooth FAQ / accordion opening (progressive enhancement) */
+:root { interpolate-size: allow-keywords; }
+.faq-item::details-content, .accordion details::details-content { block-size: 0; overflow: hidden; transition: block-size .5s var(--ease), content-visibility .5s allow-discrete; }
+.faq-item[open]::details-content, .accordion details[open]::details-content { block-size: auto; }
+
+/* macro tilt on hover */
+.macro { transform: perspective(1200px) rotateX(var(--trx, 0deg)) rotateY(var(--try, 0deg)); transition: transform .6s var(--ease), clip-path 1.4s cubic-bezier(.2,.75,.1,1); }
+
+/* process dots light up one after another */
+.process .dot { transition: background-color .5s, color .5s, border-color .5s, box-shadow .5s; }
+.process[style*="--p: 1"] li .dot, .process.lit li .dot { background: #d5ad4d14; border-color: var(--gold-bright); box-shadow: 0 0 0 6px #edbd5512; }
+.process.lit li:nth-child(1) .dot { transition-delay: .1s; }
+.process.lit li:nth-child(2) .dot { transition-delay: .4s; }
+.process.lit li:nth-child(3) .dot { transition-delay: .7s; }
+.process.lit li:nth-child(4) .dot { transition-delay: 1s; }
+.process.lit li:nth-child(5) .dot { transition-delay: 1.3s; }
+
+/* CTA with form */
+.cta-band .split { align-items: start; }
+.cta-copy .h-section { max-width: 14ch; }
+.cta-mail { display: inline-flex; align-items: center; gap: .7rem; font: 300 clamp(1.2rem, 2vw, 1.6rem)/1.2 var(--font-display); color: var(--ink); width: fit-content; transition: color .3s; }
+.cta-mail svg { width: 22px; height: 22px; fill: none; stroke: var(--gold-bright); stroke-width: 1.4; }
+.cta-mail:hover { color: var(--gold-bright); }
+.cta-band .form { background: linear-gradient(160deg, #ffffff08, #ffffff02); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(1.2rem, 3vw, 2.2rem); }
+
+@media (prefers-reduced-motion: reduce) {
+  .loop::before { animation: none; }
+  .macro { transform: none !important; }
+}

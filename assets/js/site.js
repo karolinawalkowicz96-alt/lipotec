@@ -103,6 +103,34 @@
     sec.style.setProperty("--my", `${e.clientY - r.top}px`);
   }));
 
+  /* ---------- video loops: play only while visible ---------- */
+  $$("[data-loop] video").forEach((v) => {
+    if (reduced.matches || !io) return; // poster only
+    const vo = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { v.preload = "auto"; v.play().catch(() => {}); } else v.pause();
+    }, { threshold: 0.25 });
+    vo.observe(v);
+  });
+
+  /* ---------- scroll progress hairline ---------- */
+  if (header) {
+    let sq = false;
+    const sp = () => { sq = false; const h = document.documentElement; header.style.setProperty("--sp", (scrollY / Math.max(1, h.scrollHeight - innerHeight)).toFixed(4)); };
+    addEventListener("scroll", () => { if (!sq) { sq = true; requestAnimationFrame(sp); } }, { passive: true });
+    sp();
+  }
+
+  /* ---------- macro hover tilt ---------- */
+  $$(".macro").forEach((m) => {
+    m.addEventListener("pointermove", (e) => {
+      if (!finePointer.matches || reduced.matches) return;
+      const r = m.getBoundingClientRect();
+      m.style.setProperty("--try", `${(((e.clientX - r.left) / r.width) - 0.5) * 5}deg`);
+      m.style.setProperty("--trx", `${(0.5 - ((e.clientY - r.top) / r.height)) * 4}deg`);
+    });
+    m.addEventListener("pointerleave", () => { m.style.setProperty("--try", "0deg"); m.style.setProperty("--trx", "0deg"); });
+  });
+
   /* ---------- macro parallax ---------- */
   const px = $$("[data-parallax]");
   if (px.length && !reduced.matches) {
@@ -124,8 +152,8 @@
 
   /* ---------- process line ---------- */
   $$(".process").forEach((el) => {
-    if (!io) return el.style.setProperty("--p", 1);
-    const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) { el.style.setProperty("--p", 1); o.disconnect(); } }, { threshold: 0.35 });
+    if (!io) { el.classList.add("lit"); return el.style.setProperty("--p", 1); }
+    const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) { el.style.setProperty("--p", 1); el.classList.add("lit"); o.disconnect(); } }, { threshold: 0.35 });
     o.observe(el);
   });
 
