@@ -1,0 +1,40 @@
+<!--meta {
+  "title": "Polityka prywatności | LIPOTEC",
+  "description": "Informacje o przetwarzaniu danych osobowych w serwisie LIPOTEC: formularz kontaktowy, korespondencja e-mail, pamięć przeglądarki i usługi zewnętrzne.",
+  "h1": "Polityka prywatności",
+  "priority": 0.3,
+  "breadcrumbs": [["Strona główna", "/"], ["Polityka prywatności", "/polityka-prywatnosci"]]
+}-->
+<article class="article">
+  <div class="wrap">
+    <header class="article-head">
+      <ol class="breadcrumbs"><li><a href="/">Strona główna</a></li><li aria-current="page">Polityka prywatności</li></ol>
+      <h1 class="h-display">Polityka prywatności</h1>
+      <p class="article-meta"><span>Obowiązuje od 4 listopada 2026</span></p>
+    </header>
+    <div class="prose">
+      <h2 style="margin-top:0">1. Administrator danych</h2>
+      <p>Administratorem danych osobowych przekazywanych za pośrednictwem serwisu jest {{#if company.dataController}}{{company.dataController}}{{else}}{{#if company.legalName}}{{company.legalName}}{{else}}podmiot prowadzący działalność pod marką LIPOTEC{{/if}}{{/if}}{{#if company.address}}, {{company.address}}{{/if}}{{#if company.nip}}, NIP {{company.nip}}{{/if}}. Kontakt w sprawach danych osobowych: <a href="mailto:{{company.email}}">{{company.email}}</a>.</p>
+
+      <h2>2. Jakie dane przetwarzamy i w jakim celu</h2>
+      <p>Przetwarzamy dane, które przekazujesz nam w formularzu kontaktowym lub w wiadomości e-mail: imię i nazwisko, nazwę placówki, adres e-mail, opcjonalnie numer telefonu oraz treść wiadomości. Wykorzystujemy je wyłącznie po to, aby odpowiedzieć na zapytanie i — jeśli o to poprosisz — przygotować ofertę.</p>
+      <p>Podstawą prawną jest art. 6 ust. 1 lit. b RODO (działania przed zawarciem umowy na Twoje żądanie) oraz art. 6 ust. 1 lit. f RODO (prawnie uzasadniony interes administratora polegający na prowadzeniu korespondencji biznesowej).</p>
+
+      <h2>3. Jak długo przechowujemy dane</h2>
+      <p>Dane z zapytań przechowujemy przez czas prowadzenia korespondencji, a następnie przez okres niezbędny do ewentualnego ustalenia, dochodzenia lub obrony roszczeń, nie dłużej niż przez okres przedawnienia roszczeń. Jeśli zawrzemy umowę, dane będą przetwarzane przez czas wymagany przepisami prawa.</p>
+
+      <h2>4. Odbiorcy danych</h2>
+      <p>Dane mogą być przekazywane podmiotom, które świadczą dla nas usługi techniczne: dostawcy hostingu serwisu (Vercel Inc.), dostawcy poczty elektronicznej (Google — skrzynka {{company.email}}) oraz — po uruchomieniu wysyłki formularza — dostawcy usługi wysyłki wiadomości e-mail. Część z tych podmiotów może przetwarzać dane poza Europejskim Obszarem Gospodarczym; w takim przypadku przekazanie odbywa się na podstawie mechanizmów przewidzianych w RODO, takich jak decyzja Komisji Europejskiej stwierdzająca odpowiedni stopień ochrony lub standardowe klauzule umowne.</p>
+
+      <h2>5. Twoje prawa</h2>
+      <p>Masz prawo dostępu do swoich danych, ich sprostowania, usunięcia lub ograniczenia przetwarzania, prawo do przenoszenia danych oraz prawo wniesienia sprzeciwu wobec przetwarzania opartego na prawnie uzasadnionym interesie. Przysługuje Ci także prawo wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych. Podanie danych jest dobrowolne, ale bez nich nie odpowiemy na zapytanie.</p>
+
+      <h2>6. Pliki cookies i pamięć przeglądarki</h2>
+      <p>Serwis nie używa plików cookies analitycznych ani marketingowych. W pamięci Twojej przeglądarki (localStorage) zapisujemy wyłącznie informację o potwierdzeniu, że jesteś profesjonalistą ochrony zdrowia — po to, aby nie wyświetlać tego pytania przy każdej wizycie. Możesz ją usunąć w stopce strony lub w ustawieniach przeglądarki.</p>
+      <p>Kroje pisma są pobierane z usługi Google Fonts. Podczas ich pobierania przeglądarka przekazuje do Google adres IP i podstawowe informacje techniczne. Hosting Vercel może przetwarzać dane techniczne połączenia (np. adres IP) w logach serwera w celu zapewnienia bezpieczeństwa i działania serwisu.</p>
+
+      <h2>7. Zmiany polityki</h2>
+      <p>Politykę możemy aktualizować, np. po uzupełnieniu danych rejestrowych lub zmianie dostawców usług. Aktualna wersja jest zawsze dostępna na tej stronie.</p>
+    </div>
+  </div>
+</article>

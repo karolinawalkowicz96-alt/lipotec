@@ -1,0 +1,40 @@
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="/assets/brand/lipotec-logo.svg" width="190" height="45" alt="LIPOTEC" loading="lazy">
+      <p>LIPOTEC rozwija działalność w obszarze dystrybucji zaawansowanych technologii dla profesjonalnych placówek medycznych. Obecnie prezentujemy system EVA SP6 marki EUROMI.</p>
+    </div>
+    <nav class="footer-col" aria-label="Urządzenia i technologia">
+      <h2>Technologia</h2>
+      <a href="/eva-sp6">EVA SP6</a>
+      <a href="/technologia-nil">Technologia N.I.L.</a>
+      <a href="/urzadzenia">Urządzenia</a>
+      <a href="/wiedza">Baza wiedzy</a>
+    </nav>
+    <nav class="footer-col" aria-label="Firma">
+      <h2>LIPOTEC</h2>
+      <a href="/o-lipotec">O LIPOTEC</a>
+      <a href="/dla-klinik">Dla klinik</a>
+      <a href="/kontakt">Kontakt</a>
+      <a href="/polityka-prywatnosci">Polityka prywatności</a>
+    </nav>
+    <div class="footer-col footer-contact">
+      <h2>Kontakt</h2>
+      <a class="footer-mail" href="mailto:{{company.email}}">{{company.email}}</a>
+      {{#if company.phone}}<a href="tel:{{company.phone}}">{{company.phone}}</a>{{/if}}
+      {{#if company.address}}<address>{{company.address}}</address>{{/if}}
+    </div>
+  </div>
+  <div class="footer-legal">
+    <p>Treści serwisu mają charakter informacyjny i są przeznaczone dla profesjonalistów ochrony zdrowia oraz placówek medycznych. Nie stanowią porady medycznej. Decyzję o kwalifikacji do zabiegu i wyborze metody podejmuje lekarz.</p>
+    <p>EUROMI, EVA SP6, Lipomatic i EVAMATIC są oznaczeniami ich właścicieli. LIPOTEC nie jest producentem urządzenia. Zdjęcia urządzenia na stronie są wizualizacjami poglądowymi — rzeczywisty wygląd i skład zestawu potwierdzamy przed ofertą.</p>
+    <div class="footer-meta">
+      <span>© {{year}} {{#if company.legalName}}{{company.legalName}}{{else}}LIPOTEC{{/if}}</span>
+      {{#if company.nip}}<span>NIP {{company.nip}}</span>{{/if}}
+      {{#if company.regon}}<span>REGON {{company.regon}}</span>{{/if}}
+      {{#if company.krs}}<span>KRS {{company.krs}}</span>{{/if}}
+      <a href="/polityka-prywatnosci">Polityka prywatności</a>
+      <button type="button" class="link-btn" data-gate-reset>Zmień potwierdzenie statusu profesjonalisty</button>
+    </div>
+  </div>
+</footer>

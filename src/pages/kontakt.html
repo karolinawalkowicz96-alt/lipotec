@@ -1,0 +1,36 @@
+<!--meta {
+  "title": "Kontakt — zapytanie o EVA SP6 i współpracę | LIPOTEC",
+  "description": "Skontaktuj się z LIPOTEC: zapytanie o system EVA SP6, prośba o prezentację lub indywidualną ofertę dla kliniki. E-mail: lipotec@gmail.com.",
+  "h1": "Kontakt",
+  "schemaType": "ContactPage",
+  "priority": 0.8,
+  "breadcrumbs": [["Strona główna", "/"], ["Kontakt", "/kontakt"]]
+}-->
+<section class="page-hero" style="padding-bottom:0">
+  <div class="wrap">
+    <ol class="breadcrumbs"><li><a href="/">Strona główna</a></li><li aria-current="page">Kontakt</li></ol>
+    <h1 class="h-display"><span class="line">Porozmawiajmy</span><span class="line gold-text">o Twojej placówce.</span></h1>
+  </div>
+</section>
+
+<section class="section" style="border-top:0">
+  <div class="wrap split">
+    <div class="contact-direct">
+      <p class="lead">Napisz, czego potrzebujesz: informacji o EVA SP6, prezentacji urządzenia, indywidualnej oferty albo rozmowy o współpracy. Odpowiadamy lekarzom i przedstawicielom placówek medycznych.</p>
+      <div>
+        <p class="kicker" style="margin-bottom:.6rem">E-mail</p>
+        <a class="mail" href="mailto:{{company.email}}"><svg aria-hidden="true"><use href="#i-mail"/></svg>{{company.email}}</a>
+      </div>
+      {{#if company.phone}}<div><p class="kicker" style="margin-bottom:.6rem">Telefon</p><a class="mail" href="tel:{{company.phone}}">{{company.phone}}</a></div>{{/if}}
+      {{#if company.address}}<div><p class="kicker" style="margin-bottom:.6rem">Adres</p><address style="font-style:normal">{{company.address}}</address></div>{{/if}}
+      <div class="feature-rows" style="margin-top:1rem">
+        <div class="feature-row" style="grid-template-columns:52px 1fr"><svg class="icon"><use href="#i-dialog"/></svg><div><h3>Co warto napisać</h3><p>Profil placówki, planowany zakres zabiegów, interesującą konfigurację i preferowaną formę kontaktu.</p></div></div>
+        <div class="feature-row" style="grid-template-columns:52px 1fr"><svg class="icon"><use href="#i-presentation"/></svg><div><h3>Prezentacja</h3><p>Termin i formę prezentacji ustalamy indywidualnie po pierwszej wymianie wiadomości.</p></div></div>
+      </div>
+    </div>
+    <div>
+      <h2 class="sr-only">Formularz kontaktowy</h2>
+      {{> contact-form}}
+    </div>
+  </div>
+</section>

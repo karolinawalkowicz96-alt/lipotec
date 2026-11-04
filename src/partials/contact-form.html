@@ -1,0 +1,49 @@
+<form class="form" data-contact-form data-email="{{company.email}}" novalidate aria-describedby="form-privacy">
+  <div class="form-grid">
+    <div class="field">
+      <label for="f-name">Imię i nazwisko</label>
+      <input id="f-name" name="name" autocomplete="name" required minlength="2" maxlength="120" aria-describedby="err-name">
+      <span class="err" id="err-name" aria-live="polite"></span>
+    </div>
+    <div class="field">
+      <label for="f-clinic">Nazwa kliniki lub placówki</label>
+      <input id="f-clinic" name="clinic" autocomplete="organization" required minlength="2" maxlength="180" aria-describedby="err-clinic">
+      <span class="err" id="err-clinic" aria-live="polite"></span>
+    </div>
+    <div class="field">
+      <label for="f-email">Adres e-mail</label>
+      <input id="f-email" name="email" type="email" autocomplete="email" required maxlength="160" aria-describedby="err-email">
+      <span class="err" id="err-email" aria-live="polite"></span>
+    </div>
+    <div class="field">
+      <label for="f-phone">Numer telefonu <span>(opcjonalnie)</span></label>
+      <input id="f-phone" name="phone" type="tel" autocomplete="tel" pattern="[+()0-9\s-]{7,20}" maxlength="20" aria-describedby="err-phone">
+      <span class="err" id="err-phone" aria-live="polite"></span>
+    </div>
+  </div>
+  <div class="field">
+    <label for="f-topic">Rodzaj zapytania</label>
+    <select id="f-topic" name="topic" required aria-describedby="err-topic">
+      <option value="" disabled selected>Wybierz z listy</option>
+      <option>Zapytanie o EVA SP6</option>
+      <option>Prośba o prezentację</option>
+      <option>Prośba o indywidualną ofertę</option>
+      <option>Pytanie o współpracę</option>
+      <option>Inne</option>
+    </select>
+    <span class="err" id="err-topic" aria-live="polite"></span>
+  </div>
+  <div class="field">
+    <label for="f-message">Wiadomość</label>
+    <textarea id="f-message" name="message" rows="5" required minlength="10" maxlength="4000" placeholder="Np. profil placówki, zakres zabiegów, pytania o konfigurację lub termin prezentacji." aria-describedby="err-message"></textarea>
+    <span class="err" id="err-message" aria-live="polite"></span>
+  </div>
+  <div class="hp" aria-hidden="true"><label for="f-website">Pozostaw puste</label><input id="f-website" name="website" tabindex="-1" autocomplete="off"></div>
+  <label class="consent" for="f-consent">
+    <input id="f-consent" type="checkbox" name="consent" required aria-describedby="err-consent">
+    <span id="form-privacy">Zapoznałem/-am się z <a class="text-link" href="/polityka-prywatnosci">informacją o przetwarzaniu danych osobowych</a>. Dane z formularza wykorzystamy wyłącznie do odpowiedzi na zapytanie.</span>
+  </label>
+  <span class="err" id="err-consent" aria-live="polite"></span>
+  <div><button class="btn btn-gold" type="submit"><span>Wyślij zapytanie</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
+  <p class="form-status" role="status" aria-live="polite" tabindex="-1"></p>
+</form>

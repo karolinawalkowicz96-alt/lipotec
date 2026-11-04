@@ -1,0 +1,13 @@
+{
+  "name": "lipotec",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "description": "LIPOTEC — serwis EVA SP6 (statyczny generator bez zależności + funkcja Vercel dla formularza)",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "images": "python3 scripts/derive-images.py",
+    "dev": "node scripts/build.mjs && npx --yes serve dist -l 4321"
+  }
+}
