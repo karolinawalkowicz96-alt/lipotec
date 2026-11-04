@@ -8,11 +8,6 @@
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
-  const store = {
-    get(k) { try { return localStorage.getItem(k); } catch { return null; } },
-    set(k, v) { try { localStorage.setItem(k, v); } catch { /* storage unavailable */ } },
-    del(k) { try { localStorage.removeItem(k); } catch { /* storage unavailable */ } },
-  };
 
   /* ---------- header ---------- */
   const header = $("[data-header]");
@@ -32,29 +27,6 @@
   toggle?.addEventListener("click", () => setMenu(toggle.getAttribute("aria-expanded") !== "true"));
   addEventListener("keydown", (e) => { if (e.key === "Escape" && toggle?.getAttribute("aria-expanded") === "true") { setMenu(false); toggle.focus(); } });
   addEventListener("resize", () => { if (innerWidth > 980) setMenu(false); });
-
-  /* ---------- professional-audience confirmation ---------- */
-  const GATE_KEY = "lipotec-hcp-confirmed";
-  const gate = $("[data-gate-dialog]");
-  if (gate && document.body.hasAttribute("data-gate") && store.get(GATE_KEY) !== "yes") {
-    gate.hidden = false;
-    document.body.classList.add("gate-open");
-    const prev = document.activeElement;
-    $("[data-gate-accept]", gate).focus();
-    gate.addEventListener("keydown", (e) => {
-      if (e.key !== "Tab") return;
-      const f = $$("button, a", gate);
-      if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
-      else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
-    });
-    $("[data-gate-accept]", gate).addEventListener("click", () => {
-      store.set(GATE_KEY, "yes");
-      gate.hidden = true;
-      document.body.classList.remove("gate-open");
-      prev?.focus?.();
-    });
-  }
-  $("[data-gate-reset]")?.addEventListener("click", () => { store.del(GATE_KEY); location.reload(); });
 
   /* ---------- hero entrance + studio tilt ---------- */
   const hero = $(".hero, .product-hero");
@@ -82,6 +54,73 @@
     ? new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("seen"); io.unobserve(e.target); } }), { threshold: 0.15, rootMargin: "0px 0px -8% 0px" })
     : null;
   $$("[data-reveal]").forEach((el) => (io ? io.observe(el) : el.classList.add("seen")));
+
+  /* ---------- headings rise, icons draw, rules draw ---------- */
+  if (io && !reduced.matches) {
+    $$("main .h-section, main .page-hero .h-display").forEach((h) => {
+      if (h.closest(".hero, .product-hero")) return;
+      const lines = $$(".line", h);
+      if (!lines.length) h.innerHTML = `<span class="line">${h.innerHTML}</span>`;
+      $$(".line", h).forEach((l) => {
+        const gold = l.classList.contains("gold-text");
+        l.classList.remove("gold-text");
+        l.innerHTML = `<span${gold ? ' class="gold-text"' : ""}>${l.innerHTML}</span>`;
+      });
+      h.setAttribute("data-rise", "");
+      io.observe(h);
+    });
+    $$(".feature-row, .perspective, .stage-card, .icon-ring").forEach((el) => {
+      if (!el.querySelector(".icon") || el.closest("[data-draw]")) return;
+      el.setAttribute("data-draw", "");
+      io.observe(el);
+    });
+    $$(".draw-rule").forEach((el) => io.observe(el));
+  }
+
+  /* ---------- counters ---------- */
+  const counters = $$("[data-count]");
+  if (counters.length && io && !reduced.matches) {
+    const co = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      co.unobserve(e.target);
+      const el = e.target, to = +el.dataset.count, pre = el.dataset.prefix || "", t0 = performance.now(), dur = 1600;
+      const tick = (t) => {
+        const k = Math.min(1, (t - t0) / dur), v = Math.round(to * (1 - Math.pow(1 - k, 4)));
+        el.textContent = pre + v;
+        if (k < 1) requestAnimationFrame(tick);
+      };
+      el.textContent = pre + "0";
+      requestAnimationFrame(tick);
+    }), { threshold: 0.6 });
+    counters.forEach((c) => co.observe(c));
+  }
+
+  /* ---------- cursor spotlight on dark sections ---------- */
+  $$(".spot").forEach((sec) => sec.addEventListener("pointermove", (e) => {
+    if (!finePointer.matches) return;
+    const r = sec.getBoundingClientRect();
+    sec.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    sec.style.setProperty("--my", `${e.clientY - r.top}px`);
+  }));
+
+  /* ---------- macro parallax ---------- */
+  const px = $$("[data-parallax]");
+  if (px.length && !reduced.matches) {
+    let q = false;
+    const run = () => {
+      q = false;
+      const vh = innerHeight;
+      px.forEach((f) => {
+        const r = f.getBoundingClientRect();
+        if (r.bottom < -100 || r.top > vh + 100) return;
+        const k = (r.top + r.height / 2 - vh / 2) / vh; // -1..1
+        f.querySelector("img").style.setProperty("--py", `${(-k * r.height * 0.09 - r.height * 0.09).toFixed(1)}px`);
+      });
+    };
+    addEventListener("scroll", () => { if (!q) { q = true; requestAnimationFrame(run); } }, { passive: true });
+    addEventListener("resize", run);
+    run();
+  }
 
   /* ---------- process line ---------- */
   $$(".process").forEach((el) => {

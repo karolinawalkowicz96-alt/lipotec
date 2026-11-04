@@ -9,6 +9,7 @@ Statyczny serwis generowany skryptem bez zależności + jedna funkcja Vercel (fo
 - `assets/js/site.js` — interakcje (scroll story, hotspoty, lupa, bramka „dla profesjonalistów”, formularz).
 - `assets/brand/` — oryginalne logo i ikony (bez zmian).
 - `assets/original/` — oryginalne wizualizacje (nienaruszone). `assets/img/` — pochodne zoptymalizowane wersje (`npm run images`).
+- `assets/generated/` — makroujęcia wygenerowane AI (Higgsfield, GPT Image 2.5) na bazie `assets/original/product.jpg`; na stronie oznaczone „Wizualizacja AI”.
 - `api/contact.js` — wysyłka zapytań przez Resend.
 - `scripts/build.mjs` — generator → `dist/` (sitemap.xml, robots.txt, JSON-LD).
 

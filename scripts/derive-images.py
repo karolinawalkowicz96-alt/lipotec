@@ -65,6 +65,11 @@ print("cutout bbox in source:", bbox)
 # Existing macro render without people (aspiration jar)
 save_webp(Image.open(SRC / "macro-detail.jpg").convert("RGB"), "macro-jar", 1100, 82)
 
+# Photographic opening (previous hero) — unchanged pixels, resized only
+hero = Image.open(SRC / "hero-editorial.jpg").convert("RGB")
+save_webp(hero, "hero-editorial-1672", 1672, 84)
+save_webp(hero, "hero-editorial-960", 960, 82)
+
 # Open Graph image 1200x630 built from the studio render on black
 og = Image.new("RGB", (1200, 630), (0, 0, 0))
 p = cut.copy()
@@ -72,3 +77,11 @@ p.thumbnail((1200, 590), Image.LANCZOS)
 og.paste(p, (1200 - p.width - 120, 20), p)
 og.save(OUT / "og-eva-sp6.jpg", "JPEG", quality=86, optimize=True, progressive=True)
 print("assets/img/og-eva-sp6.jpg")
+
+# AI-generated macro studio shots (Higgsfield / GPT Image 2.5, reference: assets/original/product.jpg).
+# Checked visually against the reference render; labelled on the site as AI visualisations.
+GEN = ROOT / "assets" / "generated"
+for src in sorted(GEN.glob("macro-*.jpg")):
+    im = Image.open(src).convert("RGB")
+    save_webp(im, f"{src.stem}-1600", 1600, 84)
+    save_webp(im, f"{src.stem}-900", 900, 82)

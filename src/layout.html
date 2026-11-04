@@ -29,7 +29,7 @@
 <script type="application/ld+json">{{{jsonld}}}</script>
 <script src="{{asset:/assets/js/site.js}}" defer></script>
 </head>
-<body class="{{page.bodyClass}}"{{#if page.gate}} data-gate{{/if}}>
+<body class="{{page.bodyClass}}">
 <a class="skip-link" href="#main">Przejdź do treści</a>
 {{> icons}}
 {{> nav}}
@@ -37,6 +37,5 @@
 {{{content}}}
 </main>
 {{> footer}}
-{{#if page.gate}}{{> gate}}{{/if}}
 </body>
 </html>
