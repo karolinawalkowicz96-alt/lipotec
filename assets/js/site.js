@@ -244,24 +244,52 @@
     });
     select(0);
 
-    // loupe (desktop, fine pointer)
+    // loupe: follows the cursor on desktop; on touch screens it is switched on
+    // with a button, then follows the finger (drawn above it so it stays visible)
     const loupe = document.createElement("div");
     loupe.className = "loupe";
     loupe.setAttribute("aria-hidden", "true");
     box.appendChild(loupe);
     const Z = 2.6;
-    box.addEventListener("pointermove", (e) => {
-      if (!finePointer.matches || e.target.closest(".hotspot")) { loupe.classList.remove("on"); return; }
+    const toggleBtn = $(".loupe-toggle", ex);
+    let touchZoom = false;
+    function showAt(clientX, clientY, lift) {
       const r = box.getBoundingClientRect();
-      const x = e.clientX - r.left, y = e.clientY - r.top;
+      const x = Math.max(0, Math.min(r.width, clientX - r.left));
+      const y = Math.max(0, Math.min(r.height, clientY - r.top));
+      const size = loupe.offsetWidth || 190;
       loupe.style.left = `${x}px`;
-      loupe.style.top = `${y}px`;
+      loupe.style.top = `${y - lift}px`;
       loupe.style.backgroundImage = `url(${src})`;
       loupe.style.backgroundSize = `${r.width * Z}px ${r.height * Z}px`;
-      loupe.style.backgroundPosition = `${-(x * Z - 95)}px ${-(y * Z - 95)}px`;
+      loupe.style.backgroundPosition = `${-(x * Z - size / 2)}px ${-(y * Z - size / 2)}px`;
       loupe.classList.add("on");
+    }
+    box.addEventListener("pointermove", (e) => {
+      if (e.target.closest(".hotspot")) { loupe.classList.remove("on"); return; }
+      if (e.pointerType === "mouse") { if (finePointer.matches) showAt(e.clientX, e.clientY, 0); return; }
+      if (touchZoom && e.buttons !== 0) { e.preventDefault(); showAt(e.clientX, e.clientY, 95); }
     });
-    box.addEventListener("pointerleave", () => loupe.classList.remove("on"));
+    box.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "mouse" || !touchZoom || e.target.closest(".hotspot")) return;
+      e.preventDefault();
+      box.setPointerCapture?.(e.pointerId);
+      showAt(e.clientX, e.clientY, 95);
+    });
+    ["pointerup", "pointercancel", "pointerleave"].forEach((t) => box.addEventListener(t, (e) => {
+      if (e.pointerType === "mouse" && t !== "pointerleave") return;
+      loupe.classList.remove("on");
+    }));
+    toggleBtn?.addEventListener("click", () => {
+      touchZoom = !touchZoom;
+      toggleBtn.setAttribute("aria-pressed", String(touchZoom));
+      box.classList.toggle("zooming", touchZoom);
+      if (touchZoom) {
+        const r = box.getBoundingClientRect();
+        showAt(r.left + r.width * 0.5, r.top + r.height * 0.45, 0);
+        setTimeout(() => loupe.classList.remove("on"), 1400);
+      } else loupe.classList.remove("on");
+    });
   });
 
   /* ---------- contact form ---------- */

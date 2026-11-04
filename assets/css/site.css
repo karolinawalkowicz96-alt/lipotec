@@ -501,7 +501,6 @@ details[open] > summary i { background: #d5ad4d12; }
   .form-grid { grid-template-columns: 1fr; }
   .list-link { grid-template-columns: 1fr; gap: 1rem; }
   .list-link .go { display: none; }
-  .loupe { display: none; }
   .hotspot { width: 34px; height: 34px; margin: -17px 0 0 -17px; }
   .accordion .body, .faq-answer { padding-right: 0; }
   .footer-top { grid-template-columns: 1fr; }
@@ -745,3 +744,20 @@ details[open] > summary i { background: #d5ad4d12; }
 /* principle: three stages next to the panel loop */
 .why-lead { margin-top: 1.4rem; font-size: 1.02rem; }
 @media (prefers-reduced-motion: reduce) { .js .showcase .stage-rig { opacity: 1 !important; transform: none !important; } }
+
+/* loupe on touch screens */
+.explorer-caption { flex-wrap: wrap; }
+.loupe-toggle { display: none; align-items: center; gap: .5rem; border: 1px solid var(--gold-line); background: #d5ad4d10; color: var(--gold-bright); border-radius: 99px; padding: .5rem .95rem; font: 500 .85rem var(--font-body); }
+.loupe-toggle svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+.loupe-toggle .lt-on, .loupe-toggle[aria-pressed="true"] .lt-off { display: none; }
+.loupe-toggle[aria-pressed="true"] .lt-on { display: inline; }
+.loupe-toggle[aria-pressed="true"] { background: var(--grad-button); color: var(--gold-ink); border-color: #f8d58b; }
+.loupe-hint-touch { display: none; }
+@media (hover: none) {
+  .loupe-toggle { display: inline-flex; }
+  .loupe-hint-fine { display: none; }
+  .loupe-hint-touch { display: inline; }
+  .explorer-caption > svg { display: none; }
+}
+.explorer-img.zooming { touch-action: none; cursor: none; }
+@media (max-width: 640px) { .loupe { width: 150px; height: 150px; } }
