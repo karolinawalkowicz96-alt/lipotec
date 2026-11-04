@@ -191,7 +191,7 @@ async function main() {
   }
 
   // static assets
-  for (const dir of ["css", "js", "img", "brand"]) await cp(path.join(ROOT, "assets", dir), path.join(DIST, "assets", dir), { recursive: true });
+  for (const dir of ["css", "js", "img", "brand", "video"]) await cp(path.join(ROOT, "assets", dir), path.join(DIST, "assets", dir), { recursive: true });
   await cp(path.join(ROOT, "assets", "brand", "favicon.svg"), path.join(DIST, "favicon.svg"));
 
   const today = new Date().toISOString().slice(0, 10);
