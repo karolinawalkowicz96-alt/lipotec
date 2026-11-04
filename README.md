@@ -10,7 +10,7 @@ Statyczny serwis generowany skryptem bez zależności + jedna funkcja Vercel (fo
 - `assets/brand/` — oryginalne logo i ikony (bez zmian).
 - `assets/original/` — oryginalne wizualizacje (nienaruszone). `assets/img/` — pochodne zoptymalizowane wersje (`npm run images`).
 - `assets/generated/` — makroujęcia wygenerowane AI (Higgsfield, GPT Image 2.5) na bazie `assets/original/product.jpg`; na stronie oznaczone „Wizualizacja AI”.
-- `assets/video/` — pętle wideo (6 s) z makroujęć, generowane `python3 scripts/make-loops.py`; można podmienić na klipy z Higgsfield (Kling 3.0, klatka start = koniec).
+- `assets/video/` — pętle wideo: `loop-studio` (całe urządzenie w studiu, `python3 scripts/make-studio-loop.py`) i `loop-panel` (`python3 scripts/make-loops.py`). Można je podmienić na klipy z Higgsfield (Kling 3.0).
 - `api/contact.js` — wysyłka zapytań przez Resend.
 - `scripts/build.mjs` — generator → `dist/` (sitemap.xml, robots.txt, JSON-LD).
 

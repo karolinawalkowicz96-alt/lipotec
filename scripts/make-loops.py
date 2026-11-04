@@ -23,7 +23,6 @@ SECONDS = 6
 
 LOOPS = [
     # name, source, output size, zoom amplitude, pan (x, y) in fraction of frame, sweep angle
-    ("loop-screen", "macro-screen.jpg", (1280, 720), 0.07, (0.025, -0.015), 0.35),
     ("loop-panel", "macro-panel.jpg", (1280, 720), 0.06, (-0.03, 0.01), 0.25),
 ]
 

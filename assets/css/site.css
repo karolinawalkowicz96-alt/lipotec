@@ -711,3 +711,5 @@ details[open] > summary i { background: #d5ad4d12; }
   .loop::before { animation: none; }
   .macro { transform: none !important; }
 }
+.loop-tall { aspect-ratio: 4 / 5; max-width: 460px; }
+@media (max-width: 980px) { .loop-tall { max-width: none; } }
