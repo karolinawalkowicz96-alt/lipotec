@@ -1,0 +1,28 @@
+name: fetch-macros
+on:
+  push:
+    branches: [tmp/fetch-macros]
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download generated macro shots
+        run: |
+          mkdir -p assets/generated
+          B=https://d8j0ntlcm91z4.cloudfront.net/user_3Dp9atZbnmzB7SfAIKH7APvTmpb
+          curl -fsSL -o assets/generated/macro-1.png $B/hf_20261104_025810_53680bd8-e530-4f07-a45d-d78aa943d6fd.png
+          curl -fsSL -o assets/generated/macro-2.png $B/hf_20261104_025811_5c65648d-ee59-4046-b9c9-7cfb9774a16e.png
+          curl -fsSL -o assets/generated/macro-3.png $B/hf_20261104_025810_53a85922-8cf0-42b0-a80c-a0e11bb92127.png
+          curl -fsSL -o assets/generated/macro-4.png $B/hf_20261104_025810_26879206-439a-49e2-912c-526126510175.png
+          curl -fsSL -o assets/generated/macro-5.png $B/hf_20261104_025811_2e64d750-8e5b-4db3-8ee8-951eba24825d.png
+          ls -la assets/generated
+      - name: Commit
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add assets/generated
+          git commit -m "Add generated macro shots (raw)"
+          git push
