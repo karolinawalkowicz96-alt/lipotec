@@ -31,6 +31,11 @@
   /* ---------- hero entrance + studio tilt ---------- */
   const hero = $(".hero, .product-hero");
   if (hero) requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add("is-in")));
+  $$(".showcase").forEach((sc) => {
+    if (!("IntersectionObserver" in window)) return sc.classList.add("is-in");
+    const so = new IntersectionObserver(([e]) => { if (e.isIntersecting) { sc.classList.add("is-in"); so.disconnect(); } }, { threshold: 0.2 });
+    so.observe(sc);
+  });
   $$("[data-tilt]").forEach((stage) => {
     const rig = $(".stage-rig", stage);
     if (!rig) return;

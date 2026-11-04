@@ -713,3 +713,35 @@ details[open] > summary i { background: #d5ad4d12; }
 }
 .loop-tall { aspect-ratio: 4 / 5; max-width: 460px; }
 @media (max-width: 980px) { .loop-tall { max-width: none; } }
+
+/* =====================================================================
+   v2.3 — home page carries the product showcase
+   ===================================================================== */
+.showcase { overflow: hidden; isolation: isolate; }
+.showcase::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse at 72% 50%, #9b752824, transparent 55%); }
+.showcase .hero-grid { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+.showcase .hero-copy { padding-block: 0; }
+.showcase .hero-title .model { font-size: clamp(4rem, 8vw, 7.6rem); white-space: nowrap; }
+.showcase .hero-title .sub { max-width: 22ch; }
+.showcase .stage { height: min(86svh, 860px); }
+.js .showcase .stage-rig { opacity: 0; transform: translateY(50px) scale(.95); }
+.js .showcase.is-in .stage-rig { opacity: 1; transform: rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg)); transition: opacity 1.4s var(--ease), transform 1.6s var(--ease); }
+.js .showcase.is-in .stage-sheen { animation: sheen 2.6s var(--ease) .7s 1 both; }
+@media (max-width: 980px) {
+  .showcase .hero-grid { grid-template-columns: 1fr; }
+  .showcase .stage { order: -1; height: min(64svh, 600px); min-height: 400px; }
+}
+
+/* applications */
+.use-media { aspect-ratio: 4 / 5; max-height: 720px; }
+.use-list { list-style: none; margin: .5rem 0 1.4rem; padding: 0; border-top: 1px solid var(--line); counter-reset: use; }
+.use-list li { display: grid; grid-template-columns: 3rem 1fr; gap: .2rem 1rem; padding: 1.3rem 0; border-bottom: 1px solid var(--line); counter-increment: use; transition: padding .4s var(--ease); }
+.use-list li::before { content: counter(use, decimal-leading-zero); grid-row: span 2; font: 500 .85rem var(--font-body); color: var(--gold); padding-top: .3rem; }
+.use-list b { font: 400 clamp(1.15rem, 1.6vw, 1.35rem)/1.3 var(--font-display); letter-spacing: -.01em; color: var(--ink); }
+.use-list span { color: var(--muted); font-size: .95rem; }
+.use-list li:hover { padding-left: .5rem; }
+.use-list li:hover b { color: var(--gold-bright); }
+
+/* principle: three stages next to the panel loop */
+.why-lead { margin-top: 1.4rem; font-size: 1.02rem; }
+@media (prefers-reduced-motion: reduce) { .js .showcase .stage-rig { opacity: 1 !important; transform: none !important; } }
