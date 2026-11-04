@@ -753,12 +753,16 @@ details[open] > summary i { background: #d5ad4d12; }
 .loupe-toggle[aria-pressed="true"] .lt-on { display: inline; }
 .loupe-toggle[aria-pressed="true"] { background: var(--grad-button); color: var(--gold-ink); border-color: #f8d58b; }
 .loupe-hint-touch { display: none; }
-@media (hover: none) {
+@media (hover: none), (pointer: coarse) {
   .loupe-toggle { display: inline-flex; }
   .loupe-hint-fine { display: none; }
   .loupe-hint-touch { display: inline; }
-  .explorer-caption > svg { display: none; }
 }
+html.touch .loupe-toggle { display: inline-flex; }
+html.touch .loupe-hint-fine { display: none; }
+html.touch .loupe-hint-touch { display: inline; }
+.explorer-caption { gap: .8rem; align-items: center; }
+.loupe-hint-touch { font-size: .82rem; color: var(--muted); line-height: 1.5; flex: 1 1 180px; }
 .explorer-img.zooming { touch-action: none; cursor: none; }
 @media (max-width: 640px) { .loupe { width: 150px; height: 150px; } }
 
@@ -790,6 +794,6 @@ details[open] > summary i { background: #d5ad4d12; }
 .explorer-img::after { content: ""; position: absolute; z-index: -1; left: 12%; right: 12%; bottom: 1%; height: 9%; pointer-events: none;
   background: radial-gradient(ellipse at center, #f3cc7230 0%, #f3cc7210 40%, transparent 70%); filter: blur(6px); }
 /* the studio render has a pure black background: let the light show through it */
-.explorer-img > img { mix-blend-mode: lighten; position: relative; }
+.explorer-img > img { position: relative; }
 @keyframes breathe-glow { 0%, 100% { opacity: .75; transform: translate(-50%, -50%) scale(.94); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); } }
 @media (prefers-reduced-motion: reduce) { .explorer-figure::after, .explorer-img::before { animation: none; } }

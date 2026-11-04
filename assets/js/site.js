@@ -255,6 +255,8 @@
     const Z = 2.6;
     const toggleBtn = $(".loupe-toggle", ex);
     let touchZoom = false;
+    let lastTouch = 0;
+    addEventListener("touchstart", () => { lastTouch = Date.now(); doc.classList.add("touch"); }, { passive: true, capture: true });
     function showAt(clientX, clientY, lift) {
       const r = box.getBoundingClientRect();
       const x = Math.max(0, Math.min(r.width, clientX - r.left));
@@ -269,7 +271,11 @@
     }
     box.addEventListener("pointermove", (e) => {
       if (e.target.closest(".hotspot")) { loupe.classList.remove("on"); return; }
-      if (e.pointerType === "mouse") { if (finePointer.matches) showAt(e.clientX, e.clientY, 0); return; }
+      if (e.pointerType === "mouse") {
+        // real mouse only: ignore emulated mouse events that follow a touch
+        if (finePointer.matches && Date.now() - lastTouch > 1200 && !doc.classList.contains("touch")) showAt(e.clientX, e.clientY, 0);
+        return;
+      }
       if (touchZoom && e.buttons !== 0) { e.preventDefault(); showAt(e.clientX, e.clientY, 95); }
     });
     box.addEventListener("pointerdown", (e) => {

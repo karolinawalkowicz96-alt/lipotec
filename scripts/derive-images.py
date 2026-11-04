@@ -85,3 +85,10 @@ for src in sorted(GEN.glob("macro-*.jpg")):
     im = Image.open(src).convert("RGB")
     save_webp(im, f"{src.stem}-1600", 1600, 84)
     save_webp(im, f"{src.stem}-900", 900, 82)
+
+# Full-frame studio render with a transparent background (same 1100x1650 frame
+# as eva-sp6-studio-*, so hotspot positions stay identical). Lets the page's
+# own studio lighting show behind the device on every browser.
+alpha_full = device_alpha(product)
+save_webp(alpha_full, "eva-sp6-studio-alpha-1100", 1100, 86)
+save_webp(alpha_full, "eva-sp6-studio-alpha-720", 720, 84)
